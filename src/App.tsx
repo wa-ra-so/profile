@@ -69,8 +69,8 @@ function App() {
           </p>
         </div>
 
-        <div className="relative h-[420px]">
-          <AnimatePresence initial={false} custom={direction} mode="popLayout">
+        <div className="relative">
+          <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
               key={index}
               custom={direction}
@@ -84,14 +84,16 @@ function App() {
               dragTransition={{ bounceStiffness: 700, bounceDamping: 28 }}
               whileDrag={{ cursor: 'grabbing' }}
               onDragEnd={handleDragEnd}
-              className="absolute h-full w-full cursor-grab touch-pan-y"
+              className="w-full cursor-grab touch-pan-y"
             >
-              <Card className={`h-full w-full border-none ${slide.bg}`}>
-                <Card.Content className="flex h-full flex-col items-center justify-center gap-6 p-6 text-center">
+              <Card className={`min-h-[280px] w-full border-none ${slide.bg}`}>
+                <Card.Content className="flex min-h-[280px] flex-col items-center justify-center gap-6 p-6 text-center">
                   <h3 className={`text-sm leading-relaxed font-medium opacity-80 ${slide.title}`}>
                     {slide.question}
                   </h3>
-                  <p className={`text-2xl leading-snug font-bold ${slide.body}`}>{slide.answer}</p>
+                  <p className={`text-2xl leading-snug font-bold break-words ${slide.body}`}>
+                    {slide.answer}
+                  </p>
                 </Card.Content>
               </Card>
             </motion.div>
