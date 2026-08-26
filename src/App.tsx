@@ -35,7 +35,8 @@ const slides: Slide[] = [
   },
 ]
 
-const SWIPE_THRESHOLD = 50
+const SWIPE_OFFSET_THRESHOLD = 50
+const SWIPE_VELOCITY_THRESHOLD = 300
 
 function App() {
   const [index, setIndex] = useState(0)
@@ -48,8 +49,12 @@ function App() {
   }
 
   const handleDragEnd = (_: unknown, info: PanInfo) => {
-    if (info.offset.x < -SWIPE_THRESHOLD) goTo(index + 1)
-    else if (info.offset.x > SWIPE_THRESHOLD) goTo(index - 1)
+    const isFastFlick = Math.abs(info.velocity.x) > SWIPE_VELOCITY_THRESHOLD
+    const isFarDrag = Math.abs(info.offset.x) > SWIPE_OFFSET_THRESHOLD
+    if (!isFastFlick && !isFarDrag) return
+
+    if (info.offset.x < 0 || info.velocity.x < 0) goTo(index + 1)
+    else goTo(index - 1)
   }
 
   const slide = slides[index]
@@ -75,16 +80,18 @@ function App() {
               transition={{ duration: 0.3, ease: 'easeInOut' }}
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.6}
+              dragElastic={1}
+              dragTransition={{ bounceStiffness: 700, bounceDamping: 28 }}
+              whileDrag={{ cursor: 'grabbing' }}
               onDragEnd={handleDragEnd}
-              className="absolute h-full w-full cursor-grab active:cursor-grabbing"
+              className="absolute h-full w-full cursor-grab touch-pan-y"
             >
               <Card className={`h-full w-full border-none ${slide.bg}`}>
                 <Card.Content className="flex h-full flex-col justify-between p-6">
-                  <h3 className={`mb-6 text-base leading-relaxed font-semibold ${slide.title}`}>
+                  <h3 className={`mb-6 text-sm leading-relaxed font-medium opacity-80 ${slide.title}`}>
                     {slide.question}
                   </h3>
-                  <p className={`text-[15px] leading-relaxed ${slide.body}`}>{slide.answer}</p>
+                  <p className={`text-2xl leading-snug font-bold ${slide.body}`}>{slide.answer}</p>
                 </Card.Content>
               </Card>
             </motion.div>
