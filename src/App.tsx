@@ -87,8 +87,8 @@ function App() {
               className="absolute h-full w-full cursor-grab touch-pan-y"
             >
               <Card className={`h-full w-full border-none ${slide.bg}`}>
-                <Card.Content className="flex h-full flex-col justify-between p-6">
-                  <h3 className={`mb-6 text-sm leading-relaxed font-medium opacity-80 ${slide.title}`}>
+                <Card.Content className="flex h-full flex-col items-center justify-center gap-6 p-6 text-center">
+                  <h3 className={`text-sm leading-relaxed font-medium opacity-80 ${slide.title}`}>
                     {slide.question}
                   </h3>
                   <p className={`text-2xl leading-snug font-bold ${slide.body}`}>{slide.answer}</p>
