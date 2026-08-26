@@ -115,10 +115,6 @@ function App() {
         </div>
 
         <p className="mt-5 text-center text-sm text-white/80">← スワイプで進む →</p>
-
-        <div className="mt-8 rounded-xl bg-white/95 p-4 text-center text-sm leading-relaxed text-neutral-800">
-          このページの URL を QR コード化すれば、懇親会で配布できます。
-        </div>
       </div>
     </div>
   )
