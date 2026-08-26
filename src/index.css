@@ -1,0 +1,6 @@
+@import 'tailwindcss';
+@import '@heroui/react/styles';
+
+body {
+  margin: 0;
+}
